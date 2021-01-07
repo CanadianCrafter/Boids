@@ -46,7 +46,6 @@ public class Vector {
 		return this.subtract(vector).magnitude();
 	}
 	
-	
 	public double dotProduct(Vector vector) {
 		double dotProduct=0;
 		for(int i =0;i<size;i++)

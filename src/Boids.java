@@ -17,6 +17,10 @@ public class Boids {
 		velocity.add(cohesion(localFlock, cohesionCoefficient));
 	}
 	
+	public void updatePosition() {
+		position=position.add(velocity);
+	}
+	
 	
 	public Vector seperation(ArrayList<Boids> localFlock, double seperationCoefficient) {
 		int size = localFlock.size();
