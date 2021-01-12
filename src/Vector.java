@@ -1,40 +1,41 @@
 import java.util.*;
 
 public class Vector {
-	ArrayList<Double> data = new ArrayList<Double>();
+	double data[];
 	int size;
 	
 	public Vector(double ...data) {
 		size=data.length;
+		this.data = new double[size];
 		for(int i =0;i<size;i++)
-			this.data.add(data[i]);
+			this.data[i]=data[i];
 	}
 	
 	public Vector add(Vector vector) {
 		Vector sum = new Vector(0,0);
 		for(int i =0;i<size;i++)
-			sum.data.add(data.get(i)+vector.data.get(i));
+			sum.data[i] = data[i]+vector.data[i];
 		return sum;
 	}
 	
 	public Vector subtract(Vector vector) {
 		Vector difference = new Vector(0,0);
 		for(int i =0;i<size;i++)
-			difference.data.add(data.get(i)-vector.data.get(i));
+			difference.data[i] = data[i]-vector.data[i];
 		return difference;
 	}
 	
 	public Vector multiply(double factor) {
 		Vector product = new Vector(0,0);
 		for(int i =0;i<size;i++)
-			product.data.add(data.get(i)*factor);
+			product.data[i] = data[i]*factor;
 		return product;
 	}
 	
 	public Vector divide(double factor) {
 		Vector quotient = new Vector(0,0);
 		for(int i =0;i<size;i++)
-			quotient.data.add(data.get(i)/factor);
+			quotient.data[i] = data[i]/factor;
 		return quotient;
 	}
 	
@@ -49,8 +50,13 @@ public class Vector {
 	public double dotProduct(Vector vector) {
 		double dotProduct=0;
 		for(int i =0;i<size;i++)
-			dotProduct+=data.get(i)*vector.data.get(i);
+			dotProduct+=data[i]*vector.data[i];
 		return dotProduct;
+	}
+
+	@Override
+	public String toString() {
+		return "Vector [data=" + Arrays.toString(data) + ", size=" + size + "]";
 	}
 
 	
