@@ -39,12 +39,19 @@ public class Vector {
 		return quotient;
 	}
 	
+	public Vector setMagnitude(double factor) {
+		if(factor==0||this.magnitude()==0) return new Vector(0,0);
+		return this.divide(this.magnitude()/factor);
+		
+			
+	}
+	
 	public double magnitude() {
 		return Math.sqrt(this.dotProduct(this));
 	}
 	
 	public double distanceTo(Vector vector) {
-		return this.subtract(vector).magnitude();
+		return Math.sqrt(Math.abs(vector.data[0]-data[0])+Math.abs(vector.data[1]-data[1]));
 	}
 	
 	public double dotProduct(Vector vector) {
@@ -53,6 +60,8 @@ public class Vector {
 			dotProduct+=data[i]*vector.data[i];
 		return dotProduct;
 	}
+	
+	
 
 	@Override
 	public String toString() {

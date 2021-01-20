@@ -11,8 +11,8 @@ import edu.wlu.cs.levy.CG.*;
 public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	//gui stuff
 	JPanel screen = new JPanel();
-	int screenX=960;
-	int screenY=540;
+	int screenX=1000;
+	int screenY=700;
 	Timer animationTimer = new Timer(30, this);
 	
 	//boids
@@ -20,17 +20,22 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	KDTree kd;
 	
 	//settings
-	int distance= 6;
-	double seperationCoefficient= 10;
-	double alignmentCoefficient = 10;
-	double cohesionCoefficient =100;
+	int distance= 10;
+	double localRadius = 10;
+	double seperationRadius= 8;
+	double alignmentRadius = 10;
+	double cohesionRadius =10;
+	
+	double seperationStrength = 1;
+	double cohesionStrength = 5;
+	double randomStrength = 1.5;
 
 	// constructor method
 	public MainGUI() throws KeySizeException, KeyDuplicateException {
 		frameSetup();
 		panelDesign();
 		kd = new KDTree(2);
-		startingBoids(30);//temporary
+		startingBoids(100);//temporary
 		animationTimer.start();
 		
 	}
@@ -65,7 +70,7 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	public void startingBoids(int amount) throws KeySizeException, KeyDuplicateException {
 		for(int i =0;i<amount;i++) {
 			boids.add(new Boids(new Vector(Math.random()*screenX,Math.random()*screenY),new Vector(0,0)));
-			kd.insert(boids.get(i).position.data, boids.get(i));
+//			kd.insert(boids.get(i).position.data, boids.get(i));
 			
 		}
 		
@@ -74,28 +79,26 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	public void move() throws KeySizeException, IllegalArgumentException, KeyMissingException, KeyDuplicateException {
 		
 		for(int i =0;i<boids.size();i++) {
-			System.out.println(boids.toString());
-			double coords[] = boids.get(i).position.data;
-			Boids newBoids[] = new Boids[distance];
-			kd.nearest(coords,distance).toArray(newBoids);
-//			kd.delete(coords);
-//			System.out.println(boids.get(i).toString());
-//			System.out.println(Arrays.toString(newBoids));
-			boids.get(i).updateVelocity(newBoids, seperationCoefficient, alignmentCoefficient, cohesionCoefficient, screenX, screenY);
+//			System.out.println(boids.toString());
+//			double coords[] = boids.get(i).position.data;
+//			Boids newBoids[] = new Boids[distance];
+//			kd.nearest(coords,distance).toArray(newBoids);
+////			kd.delete(coords);
+////			System.out.println(boids.get(i).toString());
+////			System.out.println(Arrays.toString(newBoids));
+//			boids.get(i).updateVelocity(newBoids, seperationCoefficient, alignmentCoefficient, cohesionCoefficient, screenX, screenY);
+//			boids.get(i).updatePosition();
+////			kd.insert(boids.get(i).position.data, boids.get(i));
+			boids.get(i).updateVelocity(boids, localRadius, seperationRadius, alignmentRadius, cohesionRadius, seperationStrength, cohesionStrength, randomStrength, screenX, screenY); //switch to get set
 			boids.get(i).updatePosition();
-//			kd.insert(boids.get(i).position.data, boids.get(i));
-		}
+		} 
 		
-		kd = new KDTree(2);
-		for(int i =0;i<boids.size();i++) {
-			kd.insert(boids.get(i).position.data, boids.get(i));
-		}
+//		kd = new KDTree(2);
+//		for(int i =0;i<boids.size();i++) {
+//			kd.insert(boids.get(i).position.data, boids.get(i));
+//		}
 		
 	}
-	
-	
-	
-	
 	
 
 	public void paintComponent(Graphics g) {
@@ -110,7 +113,8 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 		for(int i =0;i<boids.size();i++) {
 			double x = boids.get(i).position.data[0];
 			double y = boids.get(i).position.data[1];
-			g.drawLine((int)x,(int)y,(int)x,(int)y);
+//			g.drawLine((int)x,(int)y,(int)x,(int)y);
+			g.fillOval((int) Math.round(x) - 5, (int) Math.round(y) - 5, 10, 10);
 		}
 	}
 	
@@ -154,7 +158,7 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-//		addBoid(event.getX(),event.getY());
+		boids.add(new Boids(new Vector(event.getX(),event.getY()+20), new Vector(0,0)));
 	}
 
 	@Override
