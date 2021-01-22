@@ -1,3 +1,5 @@
+package boids;
+
 import java.io.*;
 
 import edu.wlu.cs.levy.CG.KeyDuplicateException;

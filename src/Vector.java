@@ -1,3 +1,5 @@
+package boids;
+
 import java.util.*;
 
 public class Vector {
@@ -42,8 +44,6 @@ public class Vector {
 	public Vector setMagnitude(double factor) {
 		if(factor==0||this.magnitude()==0) return new Vector(0,0);
 		return this.divide(this.magnitude()/factor);
-		
-			
 	}
 	
 	public double magnitude() {
