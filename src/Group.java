@@ -16,12 +16,12 @@ public class Group {
 	
 	public double boidSpeed = 1;
 	
-	public double seperationStrength = 1;
+	public double seperationStrength = 1.5;
 	public double alignmentStrength = 0.4;
-	public double cohesionStrength = 7;
+	public double cohesionStrength = 6;
 	public double randomStrength = 0.5;
-	public double wallStrength = 10;
-	public double avoidObstacleStrength = 10;
+	public double wallStrength = 5;
+	public double avoidObstacleStrength = 5;
 
 	public Group() {
 

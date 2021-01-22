@@ -95,7 +95,7 @@ public class Boids {
 			}
 				
 		}
-//		cohesion = cohesion.divide(size).subtract(position).divide(cohesionCoefficient);
+//		cohesion = cohesion.divide(localFlock.size()).subtract(position);
 		if(cnt==0) return new Vector(0,0);
 		else cohesion = cohesion.add(position).divide(cnt).subtract(position).setMagnitude(0.05);
 		return cohesion;
@@ -122,7 +122,7 @@ public class Boids {
 	public Vector bounds() {
 		double x =0;
 		double y =0;
-		if(this.position.data[0]<50)x=group.getWallStrength();
+		if(this.position.data[0]<50+120)x=group.getWallStrength();
 		else if(position.data[0]>MainGUI.screenX-50)x=-1*group.getWallStrength();
 		if(this.position.data[1]<50)y=group.getWallStrength();
 		else if(position.data[1]>MainGUI.screenY-50)y=-1*group.getWallStrength();
@@ -131,7 +131,7 @@ public class Boids {
 	}
 	
 	private void limitVelocity() {
-		int vlim = 5;
+		int vlim = 4;
 //		if(velocity.magnitude()>vlim) {
 //			velocity=velocity.divide(velocity.magnitude());
 //			velocity=velocity.multiply(vlim);
