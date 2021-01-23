@@ -33,6 +33,10 @@ import edu.wlu.cs.levy.CG.KeySizeException;
  * This program aims to do recreate just that and will follow the pseudocode from http://www.kfish.org/boids/pseudocode.html. 
  * Additional features that make the program more like a simulation might get added.
  * 
+ * Controls:
+ *		> Right Click to spawn a Boid
+ * 		> Left Click to spawn an Obstacle
+ * 
  * Features:
  * 		> Displays emergent behavior
  * 		> Allows users to change the rules of the simulation
@@ -47,10 +51,7 @@ import edu.wlu.cs.levy.CG.KeySizeException;
  * 
  * Areas of Concern:
  * 		> Because the KD-Tree was not used, the simulation isn't too efficient when the number of boids is too large.
- * 		> Flickering may occur due to performance issues. If this is a problem draw circles instead of a line (MainGUI
- * 
- * 		> Right Click to spawn a Boid
- * 		> Left Click to spawn an obstacle
+ * 		> Flickering may occur due to performance issues. If this is a problem draw circles instead of a line (MainGUI, draw method, comment/uncomment)
  * 
  * 		> The project is missing features that I would have wished to add. What is here is of good quality though.
  * 		> The Boid movement vector calculations might work better with other mathematical models.
@@ -60,6 +61,7 @@ import edu.wlu.cs.levy.CG.KeySizeException;
 public class BoidsTest {
 	
 	public static void main(String[] args) throws IOException, KeySizeException, KeyDuplicateException {
+		
 		new MainGUI();
 
 	}

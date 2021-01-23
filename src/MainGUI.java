@@ -72,11 +72,12 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 
 	// constructor method
 	public MainGUI() throws KeySizeException, KeyDuplicateException {
+		
 		frameSetup();
 		panelDesign();
-		popUpInfo();
+		popUpInfo(); //open a pop up teaching users how to use the program
 //		kd = new KDTree(2); //Create a new 2-D tree
-		startingBoids(100);
+		startingBoids(80); //spawn in 80 boids at the start
 		animationTimer.start();
 
 	}
