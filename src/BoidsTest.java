@@ -46,7 +46,8 @@ import edu.wlu.cs.levy.CG.KeySizeException;
  * 		> Use of Graphics 2D
  * 
  * Areas of Concern:
- * 		> Because the KD-Tree was not used, the simulation isn't too efficient when the number of boids is too large
+ * 		> Because the KD-Tree was not used, the simulation isn't too efficient when the number of boids is too large.
+ * 		> Flickering may occur due to performance issues. If this is a problem draw circles instead of a line (MainGUI
  * 
  * 		> Right Click to spawn a Boid
  * 		> Left Click to spawn an obstacle
