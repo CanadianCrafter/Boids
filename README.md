@@ -7,9 +7,9 @@ Boids is an artificial life program, which simulates the flocking behavior of bi
 
 * Cohesion: Steer to move towards the average position (center of mass) of local flock mates. 
 
-* Obstacle avoidance: Steer away from obstacles. 
+* Obstacle Avoidance: Steer away from obstacles. 
 
-* Goal seeking: Steer towards a goal. (Not implemented yet).
+* Goal Seeking: Steer towards a goal. (Not yet implemented).
 
 You can learn more about it on Wikipedia: https://en.wikipedia.org/wiki/Boids.
 
