@@ -11,6 +11,9 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 import edu.wlu.cs.levy.CG.*;
+
+
+
 public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	//gui stuff
 	public static JPanel screen = new JPanel();

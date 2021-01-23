@@ -2,20 +2,27 @@ package boids;
 
 import java.util.ArrayList;
 
+/**
+ * Class that holds information for a group of boids/obstacles
+ * @author Bryan Wang
+ *
+ */
 public class Group {
 	
 	public ArrayList<Boids> boids = new ArrayList<Boids>();
 	public ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
 	
-	//settings
+	//Radius settings for effects on boids
 	public double localRadius = 12;
 	public double seperationRadius= 8;
 	public double alignmentRadius = 10;
 	public double cohesionRadius =10;
 	public double avoidObstacleRadius = 10;
 	
+	//settings for the speed of the boid
 	public double boidSpeed = 1;
 	
+	//Strength setting for effects on boids
 	public double seperationStrength = 1.5;
 	public double alignmentStrength = 0.4;
 	public double cohesionStrength = 6;
@@ -23,10 +30,12 @@ public class Group {
 	public double wallStrength = 5;
 	public double avoidObstacleStrength = 5;
 
+	//constructor
 	public Group() {
-
+		
 	}
 
+	//setters and getters
 	public ArrayList<Boids> getBoids() {
 		return boids;
 	}

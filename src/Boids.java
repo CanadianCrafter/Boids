@@ -2,6 +2,11 @@ package boids;
 
 import java.util.*;
 
+/**
+ * A Boid
+ * @author Bryan Wang
+ *
+ */
 public class Boids {
 	
 	Vector position; //Vector that stores the position of the boid
