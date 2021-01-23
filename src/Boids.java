@@ -3,18 +3,23 @@ package boids;
 import java.util.*;
 
 public class Boids {
-	Vector position;
-	Vector velocity;
-	Group group = new Group();
-	ArrayList<Boids> localFlock;
+	
+	Vector position; //Vector that stores the position of the boid
+	Vector velocity; //Vector that stores the velocity of the boid
+	Group group = new Group(); //information on the boid
+	ArrayList<Boids> localFlock; //the boids this boid can "see"
 	
 //	int colour[];
 	
+	//constructor
 	public Boids(Vector position, Vector velocity) {
 		this.position = position;
 		this.velocity = velocity;
 	}
 	
+	/**
+	 * Updates the velocity of the boid
+	 */
 	public void updateVelocity() {
 		localFlock = generateLocalFlock();
 		
@@ -37,7 +42,17 @@ public class Boids {
 		limitVelocity();
 	}
 	
+	/**
+	 * Updates the position of the boid
+	 */
+	public void updatePosition() {
+		position=position.add(velocity);
+	}
 
+	/**
+	 * Generates the local flock
+	 * @return New ArrayList of Boids within the local radius of this boid
+	 */
 	private ArrayList<Boids> generateLocalFlock() {
 		localFlock = new ArrayList<Boids>();
 		for(int i =0;i<group.boids.size();i++) {
@@ -47,11 +62,11 @@ public class Boids {
 		return localFlock;
 	}
 
-	public void updatePosition() {
-		position=position.add(velocity);
-	}
 	
-	
+	/**
+	 * Calculates the separation vector for this boid
+	 * @return New Vector of seperation's effect on this boid
+	 */
 	public Vector seperation() {
 		Vector seperation = new Vector(0,0);
 		for(int i =0;i<localFlock.size();i++) {
@@ -66,6 +81,11 @@ public class Boids {
 		
 	}
 	
+
+	/**
+	 * Calculates the alignment vector for this boid
+	 * @return New Vector of elignment's effect on this boid
+	 */
 	public Vector alignment() {
 		Vector alignment = new Vector(0,0);
 		int cnt =0;
@@ -84,6 +104,11 @@ public class Boids {
 		
 	}
 	
+
+	/**
+	 * Calculates the cohesion vector for this boid
+	 * @return New Vector of cohesion's effect on this boid
+	 */
 	public Vector cohesion() {
 		Vector cohesion = new Vector(0,0);
 		int cnt = 0;
@@ -102,10 +127,20 @@ public class Boids {
 		
 	}
 	
+
+	/**
+	 * Calculates the random vector for this boid
+	 * @return New Vetor that randomly affects this boid
+	 */
 	private Vector random() {
 		return new Vector(Math.random()*2-1,Math.random()*2-1);
 	}
 	
+
+	/**
+	 * Calculates the obstacle avoidance vector for this boid
+	 * @return New Vector of obstacle avoidance's effect on this boid
+	 */
 	private Vector avoidObstacles() {
 		Vector avoidObstacles = new Vector(0,0);
 		for(int i =0;i<MainGUI.group.getObstacles().size();i++) {
@@ -118,7 +153,11 @@ public class Boids {
 		return avoidObstacles;
 	}
 	
-	
+
+	/**
+	 * Calculates the wall avoidance vector for this boid
+	 * @return New Vector of wall avoidance's effect on this boid
+	 */
 	public Vector bounds() {
 		double x =0;
 		double y =0;
@@ -130,6 +169,10 @@ public class Boids {
 		
 	}
 	
+
+	/**
+	 * limits the velocity of the boid so it doesn't go too fast
+	 */
 	private void limitVelocity() {
 		int vlim = 4;
 //		if(velocity.magnitude()>vlim) {
