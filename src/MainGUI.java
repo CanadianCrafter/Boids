@@ -15,11 +15,12 @@ import edu.wlu.cs.levy.CG.*;
 
 
 public class MainGUI extends JFrame implements ActionListener, MouseListener {
-	//gui stuff
+	
+	//Panels
 	public static JPanel screen = new JPanel();
 	public static JPanel board = new JPanel();
 	public static JPanel sliders = new JPanel();
-	static int screenX=1000;
+	static int screenX=800;
 	static int screenY=600;
 	
 	//Sliders
@@ -54,13 +55,29 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	private final double WALL_STRENGTH = 10;
 	private final double AVOID_OBSTACLE_STRENGTH =10;
 	
+	//JTextAreas labeling the Sliders
+//	private static JTextArea localRadiusTextArea = new JTextArea("Boid Vision");
+	private static JButton localRadiusButton = new JButton("Boid Vision");
+	private static JButton seperationRadiusButton= new JButton("Seperation Radius");
+	private static JButton alignmentRadiusButton = new JButton("Alignment Radius");
+	private static JButton cohesionRadiusButton = new JButton("Cohesion Radius");
+	private static JButton avoidObstacleRadiusButton = new JButton("Obstacle Avoidance Radius");
 	
+	private static JButton boidSpeedButton = new JButton("Boid Speed");
+	
+	private static JButton seperationStrengthButton = new JButton("Seperation Strength");
+	private static JButton alignmentStrengthButton = new JButton("Alignment Strength");
+	private static JButton cohesionStrengthButton = new JButton("Cohesion Strength");
+	private static JButton randomStrengthButton = new JButton("Random Strength");
+	private static JButton wallStrengthButton = new JButton("Wall Strength");
+	private static JButton avoidObstacleStrengthButton = new JButton("Obstacle Avoidance Strength");
 	
 	
 	Timer animationTimer = new Timer(20, this);
 	
 	//boids
 	public static Group group = new Group();
+	
 //	KDTree kd;
 	
 
@@ -94,43 +111,50 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 //		screen.setBorder(null);
 //		screen.setBounds(0, 0, screenX, screenY);
 		screen.setLayout(new BorderLayout());
-//		screen.setBackground(new java.awt.Color(47, 47, 47));
 		screen.addMouseListener(this);
-	
+		
+		//format all the textareas
+		formatButton(localRadiusButton,seperationRadiusButton,alignmentRadiusButton,cohesionRadiusButton,
+				avoidObstacleRadiusButton,boidSpeedButton,seperationStrengthButton,alignmentStrengthButton,
+				cohesionStrengthButton,randomStrengthButton,wallStrengthButton,avoidObstacleStrengthButton);
+		
+		formatSlider(localRadiusSlider,seperationRadiusSlider,alignmentRadiusSlider,cohesionRadiusSlider,
+				avoidObstacleRadiusSlider,boidSpeedSlider,seperationStrengthSlider,alignmentStrengthSlider,
+				cohesionStrengthSlider,randomStrengthSlider,wallStrengthSlider,avoidObstacleStrengthSlider);
+		
 		
 		board.setPreferredSize(new Dimension(screenX,screenY));
+		board.setBackground(new java.awt.Color(122, 117, 116));
 		
-		sliders.setLayout(new BoxLayout(sliders, BoxLayout.Y_AXIS));
+		sliders.setLayout(new GridLayout(0,2));
+		sliders.setBackground(new java.awt.Color(47, 47, 47));
+		
+		sliders.add(localRadiusButton);
 		sliders.add(localRadiusSlider);
+		sliders.add(seperationRadiusButton);
 		sliders.add(seperationRadiusSlider);
+		sliders.add(alignmentRadiusButton);
 		sliders.add(alignmentRadiusSlider);
+		sliders.add(cohesionRadiusButton);
 		sliders.add(cohesionRadiusSlider);
+		sliders.add(avoidObstacleRadiusButton);
 		sliders.add(avoidObstacleRadiusSlider);
 		
+		sliders.add(boidSpeedButton);
 		sliders.add(boidSpeedSlider);
 		
+		sliders.add(seperationStrengthButton);
 		sliders.add(seperationStrengthSlider);
+		sliders.add(alignmentStrengthButton);
 		sliders.add(alignmentStrengthSlider);
+		sliders.add(cohesionStrengthButton);
 		sliders.add(cohesionStrengthSlider);
+		sliders.add(randomStrengthButton);
 		sliders.add(randomStrengthSlider);
+		sliders.add(wallStrengthButton);
 		sliders.add(wallStrengthSlider);
+		sliders.add(avoidObstacleStrengthButton);
 		sliders.add(avoidObstacleStrengthSlider);
-		
-		localRadiusSlider.setPreferredSize(new Dimension(120, 20));
-		seperationRadiusSlider.setPreferredSize(new Dimension(120, 20));
-		alignmentRadiusSlider.setPreferredSize(new Dimension(120, 20));
-		cohesionRadiusSlider.setPreferredSize(new Dimension(120, 20));
-		avoidObstacleRadiusSlider.setPreferredSize(new Dimension(120, 20));
-		
-		boidSpeedSlider.setPreferredSize(new Dimension(120, 20));
-		
-		seperationStrengthSlider.setPreferredSize(new Dimension(120, 20));
-		alignmentStrengthSlider.setPreferredSize(new Dimension(120, 20));
-		cohesionStrengthSlider.setPreferredSize(new Dimension(120, 20));
-		randomStrengthSlider.setPreferredSize(new Dimension(120, 20));
-		wallStrengthSlider.setPreferredSize(new Dimension(120, 20));
-		avoidObstacleStrengthSlider.setPreferredSize(new Dimension(120, 20));
-		
 		
 		
 		screen.add(sliders,"West");
@@ -142,7 +166,7 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 
 	public void startingBoids(int amount) throws KeySizeException, KeyDuplicateException {
 		for(int i =0;i<amount;i++) {
-			group.addBoid(new Boids(new Vector(Math.random()*screenX,Math.random()*screenY),new Vector(0,0)));
+			group.addBoid(new Boids(new Vector(Math.random()*screenX+400,Math.random()*screenY),new Vector(0,0)));
 //			kd.insert(boids.get(i).position.data, boids.get(i));
 			
 		}
@@ -176,7 +200,7 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setPaint(Color.BLACK);
+		g2d.setPaint(Color.WHITE);
 		g2d.setStroke(new BasicStroke(4));
 		draw(g2d);
 		
@@ -186,10 +210,10 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 		for(int i =0;i<group.boids.size();i++) {
 			double x = group.boids.get(i).position.data[0];
 			double y = group.boids.get(i).position.data[1];
-//			double x2 = x+group.boids.get(i).velocity.setMagnitude(6).data[0];
-//			double y2 = y+group.boids.get(i).velocity.setMagnitude(6).data[1];
-//			g.drawLine((int)x,(int)y,(int)x2,(int)y2);
-			g.fillOval((int) Math.round(x) - 5, (int) Math.round(y) - 5, 10, 10);
+			double x2 = x+group.boids.get(i).velocity.setMagnitude(6).data[0];
+			double y2 = y+group.boids.get(i).velocity.setMagnitude(6).data[1];
+			g.drawLine((int)x,(int)y,(int)x2,(int)y2);
+//			g.fillOval((int) Math.round(x) - 5, (int) Math.round(y) - 5, 10, 10);
 		}
 		
 		for(int i =0;i<group.obstacles.size();i++) {
@@ -204,24 +228,32 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	    paintComponent(g);
 	}
 	
-	public double[] getDoubleArray(ArrayList<Double> arraylist) {
-		double array[] = new double[arraylist.size()];
-		for(int i =0;i<arraylist.size();i++) {
-			array[i]=arraylist.get(i);
+	private void formatButton(JButton...button) {
+		JButton buttons[] = button;
+		for(int i =0;i<buttons.length;i++) {
+			buttons[i].setPreferredSize(new Dimension(200, 20));
+			buttons[i].setBorderPainted(false);
+			buttons[i].setBackground(new java.awt.Color(47, 47, 47));
+			buttons[i].setForeground(Color.WHITE);
+			buttons[i].setContentAreaFilled(false);
+			buttons[i].setOpaque(false);
 		}
-		return array;
+		
 	}
 	
-	public ArrayList<Boids> getBoidArrayList(Boids[] array) {
-		ArrayList<Boids> arraylist = new ArrayList<Boids>();
-		for(int i =0;i<array.length;i++) {
-			arraylist.add(array[i]);
+	
+	private void formatSlider(JSlider...slider) {
+		JSlider sliders[] = slider;
+		for(int i =0;i<sliders.length;i++) {
+			sliders[i].setPreferredSize(new Dimension(200, 20));
+			sliders[i].setBackground(new java.awt.Color(47, 47, 47));
+			sliders[i].setForeground(Color.WHITE);
+			sliders[i].setOpaque(false);
 		}
-		return arraylist;
+		
 	}
+	
 
-	
-	
 	
 	//carries out the actions for each of the buttons
 	public void actionPerformed(ActionEvent event) {

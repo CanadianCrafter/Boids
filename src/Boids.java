@@ -166,7 +166,7 @@ public class Boids {
 	public Vector bounds() {
 		double x =0;
 		double y =0;
-		if(this.position.data[0]<50+120)x=group.getWallStrength();
+		if(this.position.data[0]<50+400)x=group.getWallStrength();
 		else if(position.data[0]>MainGUI.screenX-50)x=-1*group.getWallStrength();
 		if(this.position.data[1]<50)y=group.getWallStrength();
 		else if(position.data[1]>MainGUI.screenY-50)y=-1*group.getWallStrength();
