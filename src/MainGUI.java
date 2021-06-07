@@ -287,7 +287,7 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 	 * carries out the actions
 	 */
 	public void actionPerformed(ActionEvent event) {
-		repaint();
+		
 
 		// move Boids
 		if (event.getSource() == animationTimer) {
@@ -298,7 +298,7 @@ public class MainGUI extends JFrame implements ActionListener, MouseListener {
 				e.printStackTrace();
 			}
 		}
-
+		repaint();
 		// get frame sizes to change walls
 		Dimension frameDimensions = getSize();
 		screenX = (int) frameDimensions.getWidth();
